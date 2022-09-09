@@ -93,41 +93,129 @@ let crearUsuario;
 let crearContrasenia;
 let iniciarUsuario;
 let iniciarContrasenia;
-let carrito=0;
-let valorCarrito=0;
-let cantidadDeProductosComprados="";
 let dineroEnCuenta=0;
 let numeroAleatorio= Math.round(Math.random() * 100000);
 let letraAleatoria= Math.random().toString(24).replace(/[^a-z]+/g, '');
 let idAleatorio=(letraAleatoria.toUpperCase()) + numeroAleatorio;
 
+class Producto{ 
 
-function mostrarCarrito(){
-        let controlCarrito=prompt(`Tus productos en el carrito son ${carrito} (${cantidadDeProductosComprados}) \nEl precio de tu carrito es de $${valorCarrito}\n1.Vaciar carrito\n2.Volver\n3.Confimar Compra`);
-        switch(controlCarrito){
+    static productosDisponibles = 0;
+
+    constructor(nombre, precio){
+        this.nombre = nombre;
+        this.precio = precio;
+        this.id = ++Producto.productosDisponibles;
+    }
+    }
+
+class Carrito{
+
+     constructor(){
+        this.productos = [];
+     }
+
+     agregarProductos(producto){  //Agrega un producto al array siempre que el array no esté lleno (<5)
+        if(this.productos.length < 5){
+            this.productos.push(producto);
+            alert(`Se ha añadido al carrito ${producto.nombre}`)
+            mostarMenuCompras();
+        }
+        else{
+            alert("Carrito lleno!")
+            mostarMenuCompras();
+        }
+     }
+
+     removerProductos(producto){  //Remueve un producto a través de su indice en el array
+            let indice = this.productos.indexOf(producto)
+            if(indice != -1){
+            carrito.productos.splice(indice, 1);
+            alert(`Se ha removido ${producto.nombre} del carrito`)
+            mostrarCarrito()
+            }
+    }
+
+     totalPrecioCarrito(){  //Muestra la suma de todos los precios de los objetos que estan dentro del array productos[]
+        let total = 0;
+        for(let producto of this.productos){
+            total = total + producto.precio
+        }
+        return total;
+     }
+
+     mostrarProductos(){                  //Muestra el nombre de los productos.
+        let productosEnElCarrito = [];
+        this.productos.forEach((producto) =>{
+            productosEnElCarrito.push(producto.nombre)
+        }
+        )
+        return productosEnElCarrito.join(", ");
+     }
+}
+
+const carrito = new Carrito();
+
+const productosDisponibles = [];
+
+productosDisponibles.push(new Producto("Heladera", 120000))
+productosDisponibles.push(new Producto("Lavarropas", 90000))
+productosDisponibles.push(new Producto("Cocina", 80000))
+productosDisponibles.push(new Producto("Aire acondicionado", 150000))
+
+let mostrarProductosDisponibles = `Estos son los productos que tenemos disponibles:\n`
+
+productosDisponibles.forEach((producto) => {
+    mostrarProductosDisponibles+=`${producto.id}. ${producto.nombre}\n`
+}
+)
+
+
+
+function mostrarCarrito(){ //muestra los productos comprados en la funcion mostarMenuCompras y el valor total del carrito. Podemos efectuar la compra, vaciar el carrito o quitar un producto
+        let controlCarrito=prompt(`Tus productos en el carrito son ${carrito.productos.length}: ${carrito.mostrarProductos()} \nEl precio de tu carrito es de $${carrito.totalPrecioCarrito()}\n1.Confirmar Compra\n2.Vaciar Carrito\n3.Remover un producto\n4.Volver`);
+        switch(controlCarrito){  
             case "1":
-                carrito=0;
-                cantidadDeProductosComprados="";
-                valorCarrito=0;
-                mostrarCarrito();
-                break;
-            case "2":
-                mostrarMenu();
-                break;
-
-            case "3":
-                if(valorCarrito<=dineroEnCuenta){
+                if(carrito.totalPrecioCarrito() <= dineroEnCuenta){
                     alert(`Compra efectuada con exito. Id de transacción: #${idAleatorio}`);
-                    dineroEnCuenta=dineroEnCuenta-valorCarrito;
-                    carrito=0;
-                    cantidadDeProductosComprados="";
-                    valorCarrito=0
+                    dineroEnCuenta = dineroEnCuenta - carrito.totalPrecioCarrito();
+                    carrito.productos = [];
                     mostrarCarrito()
                 }else{
                     alert("Dinero Insuficiente!");
                     mostrarCarrito();
                 }   
                 break;
+
+            case "2":
+                carrito.productos = [];
+                mostrarCarrito();
+                break;
+
+            case "3":
+
+                 let productosEnElCarrito = `Elige el producto que desea remover del carrito:\n`;
+                 carrito.productos.forEach((producto, indice) =>{
+                    productosEnElCarrito+=`${indice + 1}. ${producto.nombre}\n`
+                 }
+                 )
+
+                let removerUnProducto = Number(prompt(`${productosEnElCarrito}${carrito.productos.length + 1}.Cancelar`)) //ingresa mediante prompt un numero que va a ser el indice del objeto que se encuentra dentro del array.
+                while (removerUnProducto < 1 || removerUnProducto>carrito.productos.length + 1) {
+                    alert("Opcion incorrecta, intente nuevamente")
+                    removerUnProducto = Number(prompt(`${productosEnElCarrito}${carrito.productos.length + 1}.Cancelar`));
+                } 
+                 if(removerUnProducto!=carrito.productos.length + 1){
+                    carrito.removerProductos(carrito.productos[removerUnProducto-1])
+                }
+                else {
+                     mostrarCarrito();
+                    }
+
+            case "4":
+                mostrarMenu();
+                break;
+
 
             default:
                 alert("Opción no válida")
@@ -136,8 +224,8 @@ function mostrarCarrito(){
     }
 
 
-function inicioInteraccionConElUsuario(){
-            let abrirMenu=prompt("Quieres abrir el menú? Responde con 'Si' o 'No'.")
+function inicioInteraccionConElUsuario(){ //Con esta funcion iniciamos la interaccion con el usuario, pidiendo iniciar sesion si desea abrir el menú interactivo.
+        let abrirMenu=prompt("Quieres abrir el menú? Responde con 'Si' o 'No'.")
             if(abrirMenu=="Si" || abrirMenu=="No"){
                 if(abrirMenu=="Si"){
                     alert("Primero debes iniciar sesion!");
@@ -154,11 +242,11 @@ function inicioInteraccionConElUsuario(){
             }
     }
         
-function mostrarMenu(){
+function mostrarMenu(){ //es el menu principal en donde se van a desenbocar la mayor parte de las funciones.
             let opcion= prompt("Elija una opción \n1.Comprar \n2.Mostrar carrito \n3.Mi Cuenta \n4.Cancelar");
             switch(opcion){
                 case '1':
-                    mostrarProductos();
+                    mostarMenuCompras();
                     break;
                 
                 case '2':
@@ -206,7 +294,7 @@ function mostrarMenu(){
                 
     }
 
-function iniciarSesion(){
+function iniciarSesion(){ //funcion para iniciar sesion con el usuario y contraseña que creamos al iniciar.
         iniciarUsuario=prompt("Ingrese su Usuario")
         iniciarContrasenia=prompt("Ingrese su contraseña")
         while(iniciarUsuario!=crearUsuario || iniciarContrasenia!=crearContrasenia){
@@ -218,58 +306,26 @@ function iniciarSesion(){
         }
 
 
-    function mostrarProductos(){
-        let productos=prompt("Estos son los productos que tenemos disponibles, elija el que quiera comprar \n 1.Aire Acondicionado \n 2.Heladera \n 3.Cocina \n 4.Lavarropas \n 5.Volver");
-            let precioProducto=0;
-            const PRECIO_AIRE=150000;
-            const PRECIO_HELADERA=120000;
-            const PRECIO_COCINA=80000;
-            const PRECIO_LAVARROPAS=90000;
-                switch(productos){
-                    case "1": 
-                        function agregarAlCarrito(){
-                            if(carrito>=5){
-                                alert("Carrito lleno")
-                                mostrarProductos()
-                            }else{
-                            carrito++
-                            valorCarrito=valorCarrito+precioProducto;
-                            cantidadDeProductosComprados=cantidadDeProductosComprados+productos;
-                            alert(`Se ha añadido al carrito ${productos} $${precioProducto}`);   
-                            return mostrarProductos();
-                            }
-                        }
-                        productos="Aire Acondicionado, ";
-                        precioProducto=PRECIO_AIRE;
-                        agregarAlCarrito();
-                        break;
-                    case "2": 
-                        productos="Heladera, ";
-                        precioProducto=PRECIO_HELADERA;
-                        agregarAlCarrito();
-                        break;
-                    case "3": 
-                        productos="Cocina, ";
-                        precioProducto=PRECIO_COCINA;
-                        agregarAlCarrito();
-                        break;
-                    case "4": 
-                        productos="Lavarropas, ";
-                        precioProducto=PRECIO_LAVARROPAS;
-                        agregarAlCarrito();
-                        break;
-                    case "5": 
-                        mostrarMenu();
-                        break;
-                    default:
-                        alert("Opcion incorrecta")
-                        return mostrarProductos();
+function mostarMenuCompras(){//Esta funcion simula una compra de productos.
+        let opcionProductos=Number(prompt(`${mostrarProductosDisponibles}${`${productosDisponibles.length + 1}.Volver`}\nElija el que quiera comprar`));
+        while(opcionProductos<1 || opcionProductos>productosDisponibles.length + 1){
+            alert("Opcion incorrecta, intente nuevamente")
+            opcionProductos=Number(prompt(`${mostrarProductosDisponibles}${`${productosDisponibles.length + 1}.Volver`}\nElija el que quiera comprar`));
         }
+        if (opcionProductos!=productosDisponibles.length + 1){
+                carrito.agregarProductos(productosDisponibles[opcionProductos-1]);
+            } else  {
+            mostrarMenu()
+        }
+
     }
+
 
 alert("Bienvenido!");
 crearUsuario=prompt("Cree un Usuario");
 crearContrasenia=prompt("Cree una Contraseña");
 inicioInteraccionConElUsuario();
+
+
 
 
