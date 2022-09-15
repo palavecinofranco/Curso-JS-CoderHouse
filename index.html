@@ -1,43 +1,151 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="style.css" rel="stylesheet">
-    <title>Document</title>
-</head>
-<body>
-    <div class="productos">
-    <div class="container">
-        <h1>Heladera</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime enim ad alias laboriosam.</p>
-        <a href="#">Agregar al carrito</a>
-    </div>
-    <div class="container">
-        <h1>Cocina</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime enim ad alias laboriosam.</p>
-        <a href="#">Agregar al carrito</a>
-    </div>
-    <div class="container">
-        <h1>Aire acondicionado</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime enim ad alias laboriosam.</p>
-        <a href="#">Agregar al carrito</a>
-    </div>
-    <div class="container">
-        <h1>Lavarropas</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime enim ad alias laboriosam.</p>
-        <a href="#">Agregar al carrito</a>
-    </div>
-</div>
-<div class="formularios">
-    <form>
-        <label id="nombre" for="nombre">Nombre:</label>
-        <input type="text" placeholder="Escriba su nombre" name="nombre" id="nombre">
-        <label id="email" for="email">Email:</label>
-        <input type="email" name="email">
-    </form>
-</div>
+  <head>
+    <title>Curso Css</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="estilos.css" type="text/css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/956a7fd0fd.js" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <main class="main">
+        <header class="main__header">
+            <div class="header__div">
+                <a href="#" class="header__logo"><img src="/images/logos.png" alt="logoadn" id="logo"></a>
+                <form class="header__buscador">
+                    <input type="search" id="buscador" placeholder="¿Qué estás buscando? ¡Alegra tu día!">
+                    <label for="buscador"><button class="boton-buscar"><span class="fa-solid fa-magnifying-glass"></span></button></label>
+                </form>
+                <div class="header__top-ventas">
+                  <a href="#"><h1 class="top-ventas">TOP VENTAS DEL MES</h1></a>
+                  <a href="#"><h2 class="top-mounth">#TOPMOUNTH</h2></a>
+                </div>
+                <div class="main__foto">
+                  <img src="/images/soydalto.jpg" class="main__foto-img"/>
+                </div>
+            </div>
+          <nav class="header__nav">
+            <ul class="nav__ul e-commerce">
+              <li class="nav__li"><a href="#"><i class="fa-solid fa-user" style="padding: 1px 5px; font-size: 18px;"></i>Perfil</a></li>
+              <li class="nav__li"><a href="#">Mis compras</a></li>
+              <li class="nav__li"><a href="#"><i class="fa-regular fa-heart" style="font-size: 18px; padding: 3px;"></i>Favoritos</a></li>
+              <li class="nav__li"><a href="#"><i class="fa-solid fa-cart-shopping"></i></a></li>
+            </ul>
+            <ul class="nav__ul social">
+              <li class="nav__li"><a href="#">Inicio</a></li>
+              <span style="color: #999;">|</span>
+              <li class="nav__li"><a href="#">Seguidos</a></li>
+              <span style="color: #999;">|</span>
+              <li class="nav__li"><a href="#">Mis Puntos</a></li>
+            </ul>
+          </nav>
+        </header>
+      <section class="main__slide">
+        <div class="div__slide">
+          <ul class="ul__slide">
+            <li class="li__slide">
+              <img src="/images/oferta.jpg" alt="" class="img__slide">
+            </li>
+            <li class="li__slide">
+              <img src="/images/living.jpg" alt="" class="img__slide">
+            </li>
+            <li class="li__slide">
+              <img src="/images/freelancer.jpg" alt="" class="img__slide">
+            </li>
+            <li class="li__slide">
+              <img src="/images/electricista.jpg" alt="" class="img__slide">
+              <img src="/images/trabajoencasa.jpg" alt="" class="img__slide">
+            </li>
+            <li class="li__slide">
+              <img src="/images/gaming.jpg" alt="" class="img__slide">
+            </li>
+          </ul>
+        </div>
+      </section>
+      <!--Termina el header. Empieza el inicio-->
+      <section class="main__inicio">
+        <nav class="inicio__nav">
+          <ul class="inicio__ul">
+            <li class="inicio__li">
+              <input type="checkbox" id="moda">
+              <label for="moda" class="inicio__label">Moda</label>
+              <div class="inicio__checkbox-content moda">
+                <ul class="checkbox-content">
+                  <li class="checkbox__li"><a href="#">Ropa Hombre</a></li>
+                  <li class="checkbox__li"><a href="#">Ropa Mujer</a></li>
+                  <li class="checkbox__li"><a href="#">Ropa niño</a></li>
+                  <li class="checkbox__li"><a href="#">Calzado</a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="inicio__li">
+              <input type="checkbox" id="tecnologia">
+              <label for="tecnologia" class="inicio__label">Tecnología</label>
+              <div class="inicio__checkbox-content tecnologia">
+                <ul class="checkbox-content">
+                  <li class="checkbox__li"><a href="#">Computacion</a></li>
+                  <li class="checkbox__li"><a href="#">Notebooks</a></li>
+                  <li class="checkbox__li"><a href="#">Celulares</a></li>
+                  <li class="checkbox__li"><a href="#">Audio</a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="inicio__li">
+              <input type="checkbox" id="servicios">
+              <label for="servicios" class="inicio__label">Servicios Personales</label>
+              <div class="inicio__checkbox-content servicios">
+                <ul class="checkbox-content">
+                  <li class="checkbox__li"><a href="#">Freelancers</a></li>
+                  <li class="checkbox__li"><a href="#">Mantenimiento del Hogar</a></li>
+                  <li class="checkbox__li"><a href="#">Delivery</a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="inicio__li">
+              <input type="checkbox" id="electrodomesticos">
+              <label for="electrodomesticos" class="inicio__label">Electrodomésticos</label>
+              <div class="inicio__checkbox-content electrodomesticos">
+                <ul class="checkbox-content">
+                  <li class="checkbox__li"><a href="#">Heladeras</a></li>
+                  <li class="checkbox__li"><a href="#">Lavarropas</a></li>
+                  <li class="checkbox__li"><a href="#">Televisión</a></li>
+                  <li class="checkbox__li"><a href="#">Electrodomésticos pequeños</a></li>
+                  <li class="checkbox__li"><a href="#">Cocinas</a></li>
+                  <li class="checkbox__li"><a href="#">Aires Acondicionados</a></li>
+                  <li class="checkbox__li"><a href="#">Calefactores</a></li>
+                  <li class="checkbox__li"><a href="#">Hornos</a></li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </nav>
+        <section class="inicio__compra">
+          <aside class="inicio__aside">
+            <div class="aside__div">
+            </div>
+          </aside>
+          <section class="inicio__catalogo">
+            <template>
+              <div class="producto-card">
+                <div class="producto-card__div">
+                  <div class="producto-card__img">
+                    <img src="#" class="producto__img">
+                  </div>
+                </div>
+                <div class="producto-card__compra">
+                  <h1></h1>
+                  <h6></h6>
+                  <button class="boton-comprar"><span class="fa-solid fa-cart-shopping"></span></button>
+                </div>
+              </div>
+            </template>
+          </section>
+        </section> 
+      </section>
+    </main>
+
     <script src="./app.js"></script>
-</body>
+
+  </body>
 </html>

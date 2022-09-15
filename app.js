@@ -9,12 +9,13 @@ let idAleatorio=(letraAleatoria.toUpperCase()) + numeroAleatorio;
 
 class Producto{ 
 
-    static productosDisponibles = 0;
-
-    constructor(nombre, precio){
+    constructor(nombre, precio, marca , modelo, descripcion, img){
         this.nombre = nombre;
         this.precio = precio;
-        this.id = ++Producto.productosDisponibles;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.descripcion = descripcion;
+        this.img = img;
     }
     }
 
@@ -27,8 +28,6 @@ class Carrito{
      agregarProductos(producto){  //Agrega un producto al array siempre que el array no esté lleno (<5)
         if(this.productos.length < 5){
             this.productos.push(producto);
-            alert(`Se ha añadido al carrito ${producto.nombre}`)
-            mostarMenuCompras();
         }
         else{
             alert("Carrito lleno!")
@@ -67,12 +66,17 @@ const carrito = new Carrito();
 
 const productosDisponibles = [];
 
-productosDisponibles.push(new Producto("Heladera", 120000))
-productosDisponibles.push(new Producto("Lavarropas", 90000))
-productosDisponibles.push(new Producto("Cocina", 80000))
-productosDisponibles.push(new Producto("Aire acondicionado", 150000))
+productosDisponibles.push(new Producto("Heladera", 120000, "Atma", "Top mount", "No frozen", "/images/heladeraatma.png"))
+productosDisponibles.push(new Producto("Lavarropas", 90000, "Samsung", "Inverter", "Automatico", "/images/lavarropassamsung.png"))
+productosDisponibles.push(new Producto("Cocina", 80000, "Philco", "Basic CDT", "Electrica", "/images/cocinaphilco.png"))
+productosDisponibles.push(new Producto("Aire acondicionado", 150000, "TCL", "Elite ColdHot", "split frio/calor", "/images/aireacondicionadotcl.png"))
+productosDisponibles.push(new Producto("Zapatillas", 45000, "Nike", "Air force 1", "blancas", "/images/zapasnike.png"))
+productosDisponibles.push(new Producto("Notebook", 210000, "Lenovo", "Programbook", "AMD Ryzen 5 16GB RAM, 512GB SSD", "/images/notebooklenovo.png"))
+productosDisponibles.push(new Producto("Jogging", 10000, "Puma", "Rebel", "Negro c/amarillo", "/images/pantalonpuma.png"))
+productosDisponibles.push(new Producto("Buzo", 15000, "Adidas", "Essentials", "Negro", "/images/buzoimg.png"))
+productosDisponibles.push(new Producto("Mouse", 6200, "Redragon", "Impact", "Blanco con luces", "/images/mouseredragon.png"))
 
-let mostrarProductosDisponibles = `Estos son los productos que tenemos disponibles:\n`
+let mostrarProductosDisponibles;
 
 productosDisponibles.forEach((producto) => {
     mostrarProductosDisponibles+=`${producto.id}. ${producto.nombre}\n`
@@ -80,7 +84,7 @@ productosDisponibles.forEach((producto) => {
 )
 
 
-
+/*
 function mostrarCarrito(){ //muestra los productos comprados en la funcion mostarMenuCompras y el valor total del carrito. Podemos efectuar la compra, vaciar el carrito o quitar un producto
         let controlCarrito=prompt(`Tus productos en el carrito son ${carrito.productos.length}: ${carrito.mostrarProductos()} \nEl precio de tu carrito es de $${carrito.totalPrecioCarrito()}\n1.Confirmar Compra\n2.Vaciar Carrito\n3.Remover un producto\n4.Volver`);
         switch(controlCarrito){  
@@ -233,8 +237,23 @@ function mostarMenuCompras(){//Esta funcion simula una compra de productos.
 alert("Bienvenido!");
 crearUsuario=prompt("Cree un Usuario");
 crearContrasenia=prompt("Cree una Contraseña");
-inicioInteraccionConElUsuario();
+inicioInteraccionConElUsuario();*/
 
 
 
+let catalogo = document.querySelector(".inicio__catalogo");
 
+let template = document.querySelector("template")
+
+let cardProductos = template.content.querySelector(".producto-card");
+
+productosDisponibles.forEach((producto) =>{
+    let cardProductosClon = cardProductos.cloneNode(true);
+    catalogo.appendChild(cardProductosClon);
+    let imagenProductoDiv = cardProductosClon.querySelector(".producto-card__div");
+    let imagenProductoImg = imagenProductoDiv.querySelector(".producto-card__img")
+    imagenProductoImg.children[0].src = `${producto.img}`
+    let precioProducto = cardProductosClon.querySelector(".producto-card__compra");
+    precioProducto.children[0].innerText = `$${(producto.precio)}`;
+    precioProducto.children[1].innerText = `${producto.nombre} ${producto.marca.toUpperCase()}\n ${producto.modelo} ${producto.descripcion}`;
+})
