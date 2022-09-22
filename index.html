@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
-    <title>Curso Css</title>
+    <title>Curso Js</title>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -30,7 +30,8 @@
               <li class="nav__li"><a href="#"><i class="fa-solid fa-user" style="padding: 1px 5px; font-size: 18px;"></i>Perfil</a></li>
               <li class="nav__li"><a href="#">Mis compras</a></li>
               <li class="nav__li"><a href="#"><i class="fa-regular fa-heart" style="font-size: 18px; padding: 3px;"></i>Favoritos</a></li>
-              <li class="nav__li"><a href="#"><i class="fa-solid fa-cart-shopping"></i></a></li>
+              <li class="nav__li li__button"><button class="boton-carrito"><i class="fa-solid fa-cart-shopping"></i></button>
+              </li>
             </ul>
             <ul class="nav__ul social">
               <li class="nav__li"><a href="#">Inicio</a></li>
@@ -40,6 +41,9 @@
               <li class="nav__li"><a href="#">Mis Puntos</a></li>
             </ul>
           </nav>
+          <ul id="carrito">
+            <div class="carrito__div"></div>
+          </ul>
         </header>
       <section class="main__slide">
         <div class="div__slide">
@@ -120,12 +124,7 @@
             </li>
           </ul>
         </nav>
-        <section class="inicio__compra">
-          <aside class="inicio__aside">
-            <div class="aside__div">
-            </div>
-          </aside>
-          <section class="inicio__catalogo">
+        <section class="inicio__catalogo">
             <template>
               <div class="producto-card">
                 <div class="producto-card__div">
@@ -136,13 +135,11 @@
                 <div class="producto-card__compra">
                   <h1></h1>
                   <h6></h6>
-                  <button class="boton-comprar"><span class="fa-solid fa-cart-shopping"></span></button>
                 </div>
               </div>
             </template>
           </section>
-        </section> 
-      </section>
+        </section>
     </main>
 
     <script src="./app.js"></script>
