@@ -1,18 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Alumni+Sans+Pinstripe&family=Anton&family=Barlow:ital,wght@1,100&family=Caveat:wght@500&family=Kanit:wght@100&family=Uncial+Antiqua&display=swap');
-*{
+
+.body{
+    height: 100%;
+    font-family: 'Times New Roman', Times, serif;
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
 
-body{
-    height: 100%;
-}
-
 .main{
     height: 100%;
     display: grid;
-    grid-template-rows: 130px 400px auto;
+    grid-template-rows: 130px 470px auto;
     grid-template-areas: 
     "header"
     "slider"
@@ -33,10 +32,16 @@ body{
     box-shadow: 0px 5px 15px 1px #2221;
     justify-content: space-around;
 }
+.header__logo{
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
 
 .header__logo img{
-    width: 120px;
-    object-fit: cover;
+    width: 100px;
+    position: relative;
+    flex-shrink: 2;
 }
 
 .header__buscador{
@@ -45,10 +50,12 @@ body{
     border-radius: 20px;
     justify-content: center;
     align-items: center;
-    width: 215px;
+    width: 220px;
     height: 35px;
     padding: 0 5px;
     transition: width 1s, transform .5s, box-shadow 1.2s;
+    font-family:sans-serif;
+    font-size: 13.5px;
 }
 
 .boton-buscar{
@@ -70,24 +77,11 @@ body{
 }
 
 .header__buscador:focus-within{
-    width: 350px;
+    width: 500px;
     box-shadow: 0 4px 6px 0px #ccc;
     transform: translateY(-7px);
 }
 
-.header__top-ventas{
-    font-family: 'Caveat', cursive;
-    text-align: center;
-    background-image: linear-gradient(120deg, #a6c0fe 0%, #f68084 100%);
-    -webkit-text-fill-color: transparent;
-    -webkit-background-clip: text;
-    z-index: 2;
-}
-
-.top-mounth{
-    font-family: 'Uncial Antiqua', cursive;
-    font-weight: 200;
-}
 
 .main__foto{
     width: 70px;
@@ -111,14 +105,16 @@ body{
 
 .header__nav{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     height: 100%;
 }
 
 .nav__ul{
+    margin: 0;
+    padding: 0;
     display: flex;
     list-style-type: none;
-    justify-content: flex-end;
+    justify-content: space-around;
     align-items: center;
     margin-right: 20px;
 }
@@ -130,7 +126,7 @@ body{
 
 .e-commerce .nav__li {
     padding: 0px 12px;
-    height: 80%;
+    font-size: 20px;
 }
 
 .e-commerce .nav__li a{
@@ -182,7 +178,7 @@ body{
     height: 40px;
     font-size: 20px;
     background-color: transparent;
-    border: 1px solid #CCC;
+    border: none;
     border-radius: 10px;
     cursor: pointer;
 }
@@ -197,17 +193,25 @@ body{
 }
 
 #carrito{
-    width: 0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    width: 450px;
+    max-height: 0px;
     position: absolute;
     right: 0px;
     top: 130px;
     background-color: white;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
     overflow: hidden;
+    transition: all 1s;
 }
 
 #carrito li{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
 }
 
@@ -217,6 +221,28 @@ body{
     padding: 10px 0px;
     font-family: sans-serif;
     font-weight: 100;
+    font-size: 16px;
+    margin: 10px;
+}
+
+.cantidad-productos{
+    margin: 8px;
+}
+
+.modal-title{
+    color: #ebcbb2;
+}
+
+.productos-modal{
+    font-size: 16px;
+    color: black;
+    font-family: 'Kanit', sans-serif;
+    font-weight: bold;
+}
+
+
+.modal-img{
+    width: 25px;
 }
 
 .producto-img{
@@ -224,28 +250,26 @@ body{
 }
 
 .mostrar{
-    width: 450px !important;
-    position: relative;
-    display: flex;
-    flex-direction: column;
+    max-height: 500px !important;
 }
 
-
 .boton-borrar{
-    background-color: #55000066;
+    font-family: 'Trebuchet MS', sans-serif;
+    background-color: #c224244d;
     border: none;
     font-size: 15px;
-    color: #cc0000;
-    width: 20px;
-    height: 20px;
+    border-radius: 10px;
+    color: #ff0000;
+    width: 23px;
+    height: 23px;
 }
 
 .precio-total{
     font-family: 'Alumni Sans Pinstripe', sans-serif;
-    background-color: #EEE;
     padding: 5px;
-    font-size: 24px;
+    font-size: 30px;
     display: inline-block;
+    font-weight: bold;
 }
 
 .carrito__div{
@@ -253,29 +277,64 @@ body{
     flex-direction: column;
     justify-content: space-around;
     gap: 8px;
+    height: 100%;
 }
 
-.precio-total{
+.botones{
+    width: 180px;
+    padding: 7px;
+    margin: 8px auto;
+    font-size: 16px;
+    font-family: 'Kanit', sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+}
 
+.boton-vaciar{
+    background-color: #c8424299;
+}
+
+.boton-vaciar:hover{
+    background-color: #cf131399;
+}
+
+.boton-realizarcompra{
+    background: #51d3516f;
+}
+
+.boton-realizarcompra:hover{
+    background-color: #00e90084;;
+}
+
+.botones-contenedor{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
 }
 /*---------------------SLIDER--------------------*/
 
 .div__slide{
     width: 100%;
-    height: 400px;
+    height: 470px;
     grid-area: slider;
     overflow: hidden;
 }
 
 .img__slide{
-    height: 400px;
+    height: 470px;
     width: 100%;
     object-fit: cover;
 
 }
 
 .ul__slide{
+    margin: 0;
+    padding: 0;
     display: flex;
+    justify-content: center;
+    align-items: center;
     width: 500%;
     animation: siguiente 25s infinite ease-in;
     animation-direction: alternate;
@@ -291,15 +350,18 @@ body{
 .main__inicio{
     grid-area: inicio;
     display: grid;
-    grid-template-rows: 60px auto;
+    grid-template-rows: 110px auto;
     grid-template-areas:
     "nav"
     "section-compra";
 }
 
 .inicio__nav{
-    background-image: linear-gradient(90deg, #8166c2a3 0%, #ebcbb2b4 100%);
     grid-area: nav;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .inicio_checkbox{
@@ -307,9 +369,11 @@ body{
 }
 
 .inicio__ul{
+    width: 100%;
     display: flex;
     list-style-type: none;
-    justify-content: center;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
 .inicio__label{
@@ -317,8 +381,7 @@ body{
     line-height: 60px;
     text-align: center;
     cursor: pointer;
-    color: white;
-    margin: 0 25px;
+    color: #ebcbb2;
 }
 
 .inicio__label:hover{
@@ -326,7 +389,7 @@ body{
 }
 
 .inicio__li{
-    margin: 0px 15px;
+    margin: 0px 35px;
     font-family: 'Kanit', sans-serif;
     font-weight: bold;
 }
@@ -336,27 +399,35 @@ body{
 }
 
 .inicio__checkbox-content{
+    margin: 0;
+    padding: 0;
     position: absolute;
     height: 0px;
     overflow: hidden;
     transition:height .3s;
+    z-index: 20;
+}
+
+.inicio__checkbox-content ul{
+    margin: 0;
+    padding: 0;
 }
 
 .checkbox__li{
     padding: 3px 9px;
     background-color: #bca2e7ad;
-    z-index: 20;
+    list-style-type: none;
+    width: 100%;
+    
 }
 
 .checkbox__li a{
     text-decoration: none;
     color:white;
-    z-index: 20;
 }
 
 input#moda:checked ~ .inicio__checkbox-content{
     height: 130px;
-
 }
 input#tecnologia:checked ~ .inicio__checkbox-content{
     height: 130px;
@@ -365,7 +436,7 @@ input#servicios:checked ~ .inicio__checkbox-content{
     height: 100px;
 }
 input#electrodomesticos:checked ~ .electrodomesticos{
-    height: 250px;
+    height: 300px;
 }
 
 /*-----------------------------COMPRA---------------------*/
@@ -434,6 +505,13 @@ input#electrodomesticos:checked ~ .electrodomesticos{
 
 .producto-card__compra h1{
     font-weight: bold;
+    font-size: 28px;
+}
+
+.producto-card__compra h6{
+    display: block;
+    font-size: 0.67em;
+    font-weight: bold;
 }
 
 .boton-comprar{
@@ -447,12 +525,22 @@ input#electrodomesticos:checked ~ .electrodomesticos{
     border: 1px solid #CCC;
     border-radius: 20px;
     cursor: pointer;
+    font-weight: bold;
 }
 
 .boton-comprar i{
     color: #ebcbb2;
     font-size: 20px;
     background-color: transparent;
+}
+.boton-fav{
+    position: absolute;
+    right: 10px;
+    bottom: 91.5px;
+    font-size: 24px;
+    cursor: pointer;
+    color: rgba(245, 48, 48, 0.739);
+    transition: all 0.3s;
 }
 
 
