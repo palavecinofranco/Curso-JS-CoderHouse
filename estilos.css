@@ -290,6 +290,9 @@
     cursor: pointer;
     border-radius: 20px;
     border: 1px solid #ccc;
+    text-align: center;
+    text-decoration: none;
+    color: black;
 }
 
 .boton-vaciar{
@@ -305,7 +308,8 @@
 }
 
 .boton-realizarcompra:hover{
-    background-color: #00e90084;;
+    background-color: #00e90084;
+    color: black;
 }
 
 .botones-contenedor{
@@ -457,7 +461,7 @@ input#electrodomesticos:checked ~ .electrodomesticos{
 .producto-card{
     position: relative;
     width: 290px;
-    height: 400px;
+    height: 420px;
     position: relative;
     border: 1px solid #CCC;
     border-radius: 30px;
@@ -541,6 +545,24 @@ input#electrodomesticos:checked ~ .electrodomesticos{
     cursor: pointer;
     color: rgba(245, 48, 48, 0.739);
     transition: all 0.3s;
+}
+
+/*FAV*/
+.table{
+    margin-top: 10px;
+}
+.table-th{
+    font-family: cursive;
+    letter-spacing: 2px;
+}
+/*-------------------CONFIRMAR COMPRA--------------*/
+.contenedor-table{
+    width: 80%;
+    height: 100%;
+    margin: 0 auto;
+    margin-top: 20px;
+    border: 1px solid #CCC;
+    background-color: #efe8e3cf;
 }
 
 

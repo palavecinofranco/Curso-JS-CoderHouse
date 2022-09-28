@@ -52,34 +52,17 @@ const carrito = new Carrito();
 
 const productosDisponibles = [];
 
-/*const favoritos = [];
-
+let favoritos = [];
+//Funcion para agregar los productos seleccionados a favoritos
 function agregarAFavoritos(productoId){
-    const repetido = favoritos.some((prod) => prod.id === productoId)
+        const repetido = favoritos.some((prod) => prod.id === productoId)
         if(!repetido){
             const producto = productosDisponibles.find((prod) => prod.id === productoId)
             favoritos.push(producto)
-            agregarProductosAFavEnElDom();
-        }
+            agregarFavAlLocalStorage();
     }
+}
 
-   function agregarProductosAFavEnElDom(){
-        if (favoritos === []){
-            favoritosContainer.innerHTML=`
-            <h1 class:"no-tiene">No tiene productos agregador en favoritos</h1>`
-        } else{
-            const tabla = favoritosContainer.querySelector(".table")
-            favoritos.forEach((producto) =>{
-                const elemento = tabla.createElement("tbody")
-                elemento.innerHTML = `
-                <tr>
-                <th scope="row">${producto.id}</th>
-                <td>${producto.nombre}</td>
-                <td></td>
-                </tr>`
-            })
-        }
-    }*/
 
 
 
@@ -109,7 +92,7 @@ const botonVaciarCarrito = carritoContenedor.querySelector(".boton-vaciar")
 precioTotal.innerHTML = "Precio total: $" + carrito.productos.reduce((acc, producto) => acc + producto.precio * producto.cantidad, 0)
 
 
-    const pintarEnElDom = () =>{
+const pintarEnElDom = () =>{
     productosDisponibles.forEach((producto) =>{
     let cardProductosClon = cardProductos.cloneNode(true);
     catalogo.appendChild(cardProductosClon);
@@ -130,7 +113,7 @@ precioTotal.innerHTML = "Precio total: $" + carrito.productos.reduce((acc, produ
         carrito.agregarProductos(producto.id);
         precioTotal.innerHTML = "Precio total: $" + carrito.productos.reduce((acc, producto) => acc + producto.precio * producto.cantidad, 0)
         let mostrarModal = null;
-
+        //muestra el modal que va a salir cuando se agregue un producto al carrito
         if (mostrarModal !== null){
             mostrarModal.remove();
         }
@@ -156,10 +139,27 @@ precioTotal.innerHTML = "Precio total: $" + carrito.productos.reduce((acc, produ
 
         let modal = new bootstrap.Modal(mostrarModal.querySelector(".modal"));
         modal.show(); 
-    })
+})
+    
+const botonAgregarAFavoritos = precioProducto.querySelector(`#button-fav${producto.id}`)
+    
+//Si el producto ya está agregado a favoritos, el corazon aparece pintado
+    const favoritosEnLS = JSON.parse(localStorage.getItem('favoritos'))
+    function pintarFav(productoId){
+        const repetido = favoritosEnLS.some((prod) => prod.id === productoId)
+        if(repetido){
+            const producto = favoritos.find((prod) => prod.id === productoId)
+            botonAgregarAFavoritos.style.fontSize = "28px";
+            botonAgregarAFavoritos.style.color = "red";
+            botonAgregarAFavoritos.style.fontWeight = "bold"
+    }
+    }
 
-    const botonAgregarAFavoritos = precioProducto.querySelector(`#button-fav${producto.id}`)
+    pintarFav(producto.id)
+
+    //Agrega el producto a favoritos cuando se presiona el boton y lo pinta
     botonAgregarAFavoritos.addEventListener("click", ()=>{
+        agregarAFavoritos(producto.id)
         botonAgregarAFavoritos.style.fontSize = "28px";
         botonAgregarAFavoritos.style.color = "red";
         botonAgregarAFavoritos.style.fontWeight = "bold"
@@ -215,26 +215,32 @@ const agregarProductosEnElDom = () =>{
     })
     agregarAlLocarStorage();
 }
-
+//agrega los productos al local storage
 function agregarAlLocarStorage(){   
     const aJSON = JSON.stringify(carrito.productos);
     localStorage.setItem('carrito', aJSON)
 }
+//agrega los fav al LS
+function agregarFavAlLocalStorage(){
+    const aJSON = JSON.stringify(favoritos);
+    localStorage.setItem('favoritos', aJSON)
+}
 
 window.onload = function(){
     const storage = JSON.parse(localStorage.getItem('carrito'))
-    if (storage){
+    const storage2 = JSON.parse(localStorage.getItem('favoritos'))
+    if (storage || storage2){
         carrito.productos = storage
         agregarProductosEnElDom();
         precioTotal.innerHTML = "Precio total: $" + carrito.productos.reduce((acc, producto) => acc + producto.precio, 0)
+        favoritos = storage2
     }
 }
 
-const buscador = document.querySelector("#buscador")
-const botonBuscar = document.querySelector("#botonbuscador")
-console.log(buscador)
-console.log(botonBuscar)
 
+
+const buscador = document.querySelector("#buscador")
+//filtra por nombre cuando escribimos en el input
 const filtrar = () =>{
     if(buscador.value !== ""){
     catalogo.innerHTML = "";
