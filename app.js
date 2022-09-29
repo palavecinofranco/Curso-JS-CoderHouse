@@ -146,16 +146,14 @@ const botonAgregarAFavoritos = precioProducto.querySelector(`#button-fav${produc
     
 //Si el producto ya está agregado a favoritos, el corazon aparece pintado
     const favoritosEnLS = JSON.parse(localStorage.getItem('favoritos'))
-    function pintarFav(productoId){
-        const repetido = favoritosEnLS.some((prod) => prod.id === productoId)
-        if(repetido){
+    if(favoritosEnLS){
+        const repetido = favoritosEnLS.some((prod) => prod.id === producto.id)
+        if (repetido){
             botonAgregarAFavoritos.style.fontSize = "28px";
             botonAgregarAFavoritos.style.color = "red";
             botonAgregarAFavoritos.style.fontWeight = "bold"
+        }
     }
-    }
-
-    pintarFav(producto.id)
 
     //Agrega el producto a favoritos cuando se presiona el boton y lo pinta
     botonAgregarAFavoritos.addEventListener("click", ()=>{
