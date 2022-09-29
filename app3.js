@@ -10,13 +10,16 @@ const tabla = productosContainer.querySelector(".table")
 precioTotal.innerHTML = "Precio total: $" + carrito.reduce((acc, producto) => acc + producto.precio * producto.cantidad, 0)
 precioTotalCompra.innerHTML = "Precio total: $" + carrito.reduce((acc, producto) => acc + producto.precio * producto.cantidad, 0)
 
+if (carrito.length == 0){
+    productosContainer.innerHTML = `<h1 class="mensaje-no">No hay productos en el carrito</h1>`
+}
+
 //MOSTRAR LOS PRODUCTOS EN LA TABLA PARA REALIZAR LA COMPRA
 function mostrarProductosDelCarrito(){
     carrito.forEach((producto) =>{
         const elemento = document.createElement("tbody")
         elemento.innerHTML = `
         <tr>
-        <th scope="row">❤</th>
         <td class="table-td"><img src="${producto.img}" style="width:30px;"></td>
         <td class="table-td">${producto.nombre} ${producto.marca.toUpperCase()} ${producto.modelo}</td>
         <td>$${producto.precio}</td>
@@ -38,8 +41,12 @@ function mostrarProductosDelCarrito(){
             }
             eliminarProductoCarrito(e);
             precioTotalCompra.innerHTML = "Precio total: $" + carrito.reduce((acc, producto) => acc + producto.precio * producto.cantidad, 0)
+            if (carrito.length == 0){
+                productosContainer.innerHTML = `<h1 class="mensaje-no">No hay productos en el carrito</h1>`
+            }
         })
 
+        //BOTON PARA SUMAR LA CANTIDAD DEL PRODUCTO
         const botonSumarCantidad = document.querySelector(`#botonmas${producto.id}`)
         if(producto.cantidad >=0){
         botonSumarCantidad.addEventListener("click", (e)=>{
@@ -63,7 +70,7 @@ function mostrarProductosDelCarrito(){
             sumarCantidad(e);
         })
     }
-
+        //BOTON PARA RESTAR LA CANTIDAD DEL PRODUCTO
         const botonRestarCantidad = document.querySelector(`#botonmenos${producto.id}`)
         if(producto.cantidad >1){
         botonRestarCantidad.addEventListener("click", (e)=>{

@@ -1,9 +1,11 @@
-
 let favoritos = JSON.parse(localStorage.getItem('favoritos'))
 let carrito = JSON.parse(localStorage.getItem('carrito'))
 const favoritosContainer = document.querySelector(".main__favoritos")
 const tabla = favoritosContainer.querySelector(".table")
 
+if (favoritos.length == 0){
+    favoritosContainer.innerHTML = `<h1 class="mensaje-no">No hay productos agregados en favoritos</h1>`
+}
 //agrega los productos almacenados en el localStorage en la tabla.
 function agregarProductosAFavEnElDom(){
         favoritos.forEach((producto) =>{
@@ -30,8 +32,10 @@ function agregarProductosAFavEnElDom(){
                 favoritos = JSON.parse(localStorage.getItem('favoritos'))
             }
             eliminarProductoFav(e);
+            if (favoritos.length == 0){
+                favoritosContainer.innerHTML = `<h1 class="mensaje-no">No hay productos agregados en favoritos</h1>`
+            }
             })
-
         })
     }
 

@@ -476,7 +476,7 @@ input#electrodomesticos:checked ~ .electrodomesticos{
 
 .producto-card__div{
     grid-area: producto;
-    background-image: url(/images/fondo2.jpg);
+    background:#bc8ff4e3;
     background-position: center;
 }
 
@@ -555,8 +555,17 @@ input#electrodomesticos:checked ~ .electrodomesticos{
     font-family: cursive;
     letter-spacing: 2px;
 }
+
+.mensaje-no{
+    font-size: 20px;
+    margin-top: 10%;
+    color: rgba(0, 0, 0, 0.408);
+}
+.main__favoritos{
+    text-align: center;
+}
 /*-------------------CONFIRMAR COMPRA--------------*/
-.main__carrito h1{
+.finalizar-compra{
     font-family: monospace;
     margin-top: 20px;
 }
@@ -576,6 +585,9 @@ input#electrodomesticos:checked ~ .electrodomesticos{
     margin-top: 20px;
     width: 250px;
     background-color: rgba(72, 218, 72, 0.702);
+    border: 1px solid rgba(56, 174, 56, 0.702);
+    border-radius: 5px;
+    color: white;
 }
 
 .btn-cantidad{
