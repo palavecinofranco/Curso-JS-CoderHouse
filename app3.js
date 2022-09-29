@@ -3,54 +3,96 @@ const carritoContenedor = document.querySelector("#carrito")
 const carritoProductos = carritoContenedor.querySelector(".carrito__div")
 const precioTotal = carritoContenedor.querySelector(".precio-total")
 const botonVaciarCarrito = carritoContenedor.querySelector(".boton-vaciar")
+const productosContainer = document.querySelector(".main__carrito")
+const precioTotalCompraContainer = productosContainer.querySelector(".contenedor-table")
+const precioTotalCompra = precioTotalCompraContainer.querySelector(".precio-total-compra")
+const tabla = productosContainer.querySelector(".table")
 precioTotal.innerHTML = "Precio total: $" + carrito.reduce((acc, producto) => acc + producto.precio * producto.cantidad, 0)
+precioTotalCompra.innerHTML = "Precio total: $" + carrito.reduce((acc, producto) => acc + producto.precio * producto.cantidad, 0)
 
-//    FUNCIONALIDAD DEL CARRITO AL IGUAL QUE EN EL INDEX.
-
-//abrir el carrito
-const botonAbrirCarrito = document.querySelector(".boton-carrito")
-botonAbrirCarrito.addEventListener("click", ()=>{
-     carritoContenedor.classList.toggle("mostrar")
-     carritoProductos.classList.toggle("mostrar-div")
-})
-
-const mostrarProductosEnElCarrito = () =>{
-    carritoProductos.innerHTML="";
+//MOSTRAR LOS PRODUCTOS EN LA TABLA PARA REALIZAR LA COMPRA
+function mostrarProductosDelCarrito(){
     carrito.forEach((producto) =>{
-        const elemento = document.createElement("li");
-        elemento.classList.toggle("li-producto")
-        elemento.innerHTML=`
-        <img src=${producto.img} alt="${producto.nombre}" class="producto-img">
-        <h4 class="producto-info">${producto.nombre} ${producto.marca} ${producto.modelo} $${producto.precio}</h4>
-        <p id="cantidad" class="cantidad-productos">x ${producto.cantidad}</p>
-        <button class="boton-borrar" id="botonborrar${producto.id}">X</button>
-        `;
-        carritoProductos.appendChild(elemento)
+        const elemento = document.createElement("tbody")
+        elemento.innerHTML = `
+        <tr>
+        <th scope="row">❤</th>
+        <td class="table-td"><img src="${producto.img}" style="width:30px;"></td>
+        <td class="table-td">${producto.nombre} ${producto.marca.toUpperCase()} ${producto.modelo}</td>
+        <td>$${producto.precio}</td>
+        <td class="sum">x ${producto.cantidad}<button class="btn-cantidad mas" id="botonmas${producto.id}">+</button><button class="btn-cantidad menos" id="botonmenos${producto.id}">-</button</td>
+        <td class="table-td"><button class="boton-borrar" id="botonborrar${producto.id}">X</button></td>
+        </tr>`
+        tabla.appendChild(elemento)
 
-        //borra del carrito el producto
+        //borra el producto de la tabla
         const botonBorrarProductos = document.querySelector(`#botonborrar${producto.id}`);
         botonBorrarProductos.addEventListener("click", (e)=>{
             function eliminarProductoCarrito(e){
             e.preventDefault();
             const botonApretado = e.target;
-            botonApretado.parentElement.remove()
+            botonApretado.parentElement.parentElement.remove()
             eliminarProductosCarrito(producto.id)
             actualizarCarritoLocalStorage();
             carrito = JSON.parse(localStorage.getItem('carrito'))
-            precioTotal.innerHTML = "Precio total: $" + carrito.reduce((acc, producto) => acc + producto.precio * producto.cantidad, 0)
             }
             eliminarProductoCarrito(e);
+            precioTotalCompra.innerHTML = "Precio total: $" + carrito.reduce((acc, producto) => acc + producto.precio * producto.cantidad, 0)
         })
 
-        botonVaciarCarrito.addEventListener("click", ()=>{
-            carrito = [];
-            producto.cantidad = 0;
-            actualizarCarritoLocalStorage();
-            mostrarProductosEnElCarrito();
-            precioTotal.innerHTML = "Precio total: $" + carrito.reduce((acc, producto) => acc + producto.precio, 0)
+        const botonSumarCantidad = document.querySelector(`#botonmas${producto.id}`)
+        if(producto.cantidad >=0){
+        botonSumarCantidad.addEventListener("click", (e)=>{
+            function sumarCantidad(e){
+                sumarCantidadProducto(producto.id);
+                actualizarCarritoLocalStorage();
+                carrito = JSON.parse(localStorage.getItem('carrito'))
+                tabla.innerHTML = `<thead>
+                <tr>
+                  <th scope="col" class="table-th"></th>
+                  <th scope="col" class="table-th"></th>
+                  <th scope="col" class="table-th">Producto</th>
+                  <th scope="col" class="table-th">Precio</th>
+                  <th scope="col" class="table-th">Cantidad</th>
+                  <th scope="col" class="table-th">Eliminar</th>
+                </tr>
+              </thead>`;
+                mostrarProductosDelCarrito();
+                precioTotalCompra.innerHTML = "Precio total: $" + carrito.reduce((acc, producto) => acc + producto.precio * producto.cantidad, 0)
+            }
+            sumarCantidad(e);
         })
+    }
+
+        const botonRestarCantidad = document.querySelector(`#botonmenos${producto.id}`)
+        if(producto.cantidad >1){
+        botonRestarCantidad.addEventListener("click", (e)=>{
+            function restarCantidad(e){
+                restarCantidadProducto(producto.id);
+                actualizarCarritoLocalStorage();
+                carrito = JSON.parse(localStorage.getItem('carrito'))
+                tabla.innerHTML = `<thead>
+                <tr>
+                  <th scope="col" class="table-th"></th>
+                  <th scope="col" class="table-th"></th>
+                  <th scope="col" class="table-th">Producto</th>
+                  <th scope="col" class="table-th">Precio</th>
+                  <th scope="col" class="table-th">Cantidad</th>
+                  <th scope="col" class="table-th">Eliminar</th>
+                </tr>
+              </thead>`;
+                mostrarProductosDelCarrito();
+                precioTotalCompra.innerHTML = "Precio total: $" + carrito.reduce((acc, producto) => acc + producto.precio * producto.cantidad, 0)
+            }
+            restarCantidad(e);
+        })
+    }
     })
 }
+
+mostrarProductosDelCarrito();
+
+
 function eliminarProductosCarrito(productoId){
     const producto = carrito.find((prod) => prod.id === productoId)
     const indiceDelProducto = carrito.indexOf(producto)
@@ -62,4 +104,12 @@ function actualizarCarritoLocalStorage(){
     localStorage.setItem('carrito', aJSON)
 }
 
-mostrarProductosEnElCarrito();
+function sumarCantidadProducto(productoId){
+    const producto = carrito.find((prod) => prod.id === productoId)
+    producto.cantidad++
+}
+
+function restarCantidadProducto(productoId){
+    const producto = carrito.find((prod) => prod.id === productoId)
+    producto.cantidad--
+}

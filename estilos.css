@@ -556,15 +556,37 @@ input#electrodomesticos:checked ~ .electrodomesticos{
     letter-spacing: 2px;
 }
 /*-------------------CONFIRMAR COMPRA--------------*/
+.main__carrito h1{
+    font-family: monospace;
+    margin-top: 20px;
+}
 .contenedor-table{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 80%;
     height: 100%;
     margin: 0 auto;
     margin-top: 20px;
     border: 1px solid #CCC;
-    background-color: #efe8e3cf;
+    background-color: #ffffffe7;
 }
 
+.table-button{
+    margin-top: 20px;
+    width: 250px;
+    background-color: rgba(72, 218, 72, 0.702);
+}
+
+.btn-cantidad{
+    border: none;
+    background-color: transparent;
+    margin-left: 5px;
+    color: green;
+}
+.menos{
+    color: red;
+}
 
 @keyframes siguiente {
     0%{

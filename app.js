@@ -59,6 +59,7 @@ function agregarAFavoritos(productoId){
         if(!repetido){
             const producto = productosDisponibles.find((prod) => prod.id === productoId)
             favoritos.push(producto)
+            producto.cantidad = 0;
             agregarFavAlLocalStorage();
     }
 }
@@ -148,7 +149,6 @@ const botonAgregarAFavoritos = precioProducto.querySelector(`#button-fav${produc
     function pintarFav(productoId){
         const repetido = favoritosEnLS.some((prod) => prod.id === productoId)
         if(repetido){
-            const producto = favoritos.find((prod) => prod.id === productoId)
             botonAgregarAFavoritos.style.fontSize = "28px";
             botonAgregarAFavoritos.style.color = "red";
             botonAgregarAFavoritos.style.fontWeight = "bold"

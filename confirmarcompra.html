@@ -49,11 +49,6 @@
                 >Favoritos</a
               >
             </li>
-            <li class="nav__li li__button">
-              <button class="boton-carrito">
-                <i class="fa-solid fa-cart-shopping"></i>
-              </button>
-            </li>
           </ul>
           <ul class="nav__ul social">
             <li class="nav__li"><a href="index.html">Inicio</a></li>
@@ -72,7 +67,8 @@
           </div>
         </ul>
       </header>
-      <section class="main__favoritos">
+      <section class="main__carrito" style="text-align: center;">
+        <h1>Finalizar compra</h1>
         <div class="contenedor-table">
           <table class="table" style="text-align: center">
             <thead>
@@ -80,10 +76,14 @@
                 <th scope="col" class="table-th"></th>
                 <th scope="col" class="table-th"></th>
                 <th scope="col" class="table-th">Producto</th>
+                <th scope="col" class="table-th">Precio</th>
+                <th scope="col" class="table-th">Cantidad</th>
                 <th scope="col" class="table-th">Eliminar</th>
               </tr>
             </thead>
           </table>
+          <p class="precio-total-compra"></p>
+          <button class="table-button">Confimar</button>
         </div>
       </section>
     </main>
