@@ -14,6 +14,7 @@ if (carrito.length == 0){
     productosContainer.innerHTML = `<h1 class="mensaje-no">No hay productos en el carrito</h1>`
 }
 
+
 //MOSTRAR LOS PRODUCTOS EN LA TABLA PARA REALIZAR LA COMPRA
 function mostrarProductosDelCarrito(){
     carrito.forEach((producto) =>{
@@ -57,7 +58,6 @@ function mostrarProductosDelCarrito(){
                 tabla.innerHTML = `<thead>
                 <tr>
                   <th scope="col" class="table-th"></th>
-                  <th scope="col" class="table-th"></th>
                   <th scope="col" class="table-th">Producto</th>
                   <th scope="col" class="table-th">Precio</th>
                   <th scope="col" class="table-th">Cantidad</th>
@@ -80,7 +80,6 @@ function mostrarProductosDelCarrito(){
                 carrito = JSON.parse(localStorage.getItem('carrito'))
                 tabla.innerHTML = `<thead>
                 <tr>
-                  <th scope="col" class="table-th"></th>
                   <th scope="col" class="table-th"></th>
                   <th scope="col" class="table-th">Producto</th>
                   <th scope="col" class="table-th">Precio</th>

@@ -1,7 +1,3 @@
-/*let numeroAleatorio= Math.round(Math.random() * 100000);
-let letraAleatoria= Math.random().toString(24).replace(/[^a-z]+/g, '');
-let idAleatorio=(letraAleatoria.toUpperCase()) + numeroAleatorio;*/
-
 class Producto{ 
     static cantidadDeProductos = 0;
     constructor(nombre, precio, marca , modelo, descripcion, img, cantidad){
@@ -15,57 +11,7 @@ class Producto{
         this.cantidad = cantidad;
     }
 }
-
-class Carrito{
-
-     constructor(){
-        this.productos = [];
-     }
-     //Metodo para agregar al carrito los productos.
-     agregarProductos(productoId){ 
-        const repetido = this.productos.some((prod) => prod.id === productoId)
-        if(repetido){
-            const prod = this.productos.map(prod =>{
-                if(prod.id === productoId){
-                    prod.cantidad++
-                    agregarProductosEnElDom();
-                }
-            })
-        } else{
-            const producto = productosDisponibles.find((prod) => prod.id === productoId)
-            this.productos.push(producto)
-            producto.cantidad++;
-            agregarProductosEnElDom();
-        //}
-        }
-    }
-    eliminarProductos(productoId){
-        const producto = this.productos.find((prod) => prod.id === productoId)
-        const indiceDelProducto = this.productos.indexOf(producto)
-        this.productos.splice(indiceDelProducto, 1)
-        producto.cantidad = 0;
-    }
-    
-}
-
-const carrito = new Carrito();
-
 const productosDisponibles = [];
-
-let favoritos = [];
-//Funcion para agregar los productos seleccionados a favoritos
-function agregarAFavoritos(productoId){
-        const repetido = favoritos.some((prod) => prod.id === productoId)
-        if(!repetido){
-            const producto = productosDisponibles.find((prod) => prod.id === productoId)
-            favoritos.push(producto)
-            producto.cantidad = 0;
-            agregarFavAlLocalStorage();
-    }
-}
-
-
-
 
 productosDisponibles.push(new Producto("Heladera", 120000, "Atma", "Top mount", "No frozen", "/images/heladeraatma.png", 0))
 productosDisponibles.push(new Producto("Lavarropas", 90000, "Samsung", "Inverter", "Automatico", "/images/lavarropassamsung.png", 0))
@@ -83,6 +29,55 @@ productosDisponibles.push(new Producto("Hidrolavadora", 20000, "Black + Decker",
 productosDisponibles.push(new Producto("Memoria RAM", 9000, "Fury Beast", "DDR4", "Gamer 8GB 1 Kingstone", "/images/ram.png", 0))
 productosDisponibles.push(new Producto("Bicicleta", 65000, "Mountain Bike", "Battle 210", "c/ cambios color rojo/negro", "/images/bici.png", 0))
 
+
+let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+
+//Funciones del carrito
+function agregarProductos(productoId){ 
+    const repetido = carrito.some((prod) => prod.id === productoId)
+    if(repetido){
+        const prod = carrito.map(prod =>{
+            if(prod.id === productoId){
+                prod.cantidad++
+                agregarProductosEnElDom();
+            }
+        })
+    } else {
+        const producto = productosDisponibles.find((prod) => prod.id === productoId)
+        carrito.push(producto)
+        producto.cantidad++;
+        agregarProductosEnElDom();
+    }
+}
+function eliminarProductos(productoId){
+    const producto = carrito.find((prod) => prod.id === productoId)
+    const indiceDelProducto = carrito.indexOf(producto)
+    carrito.splice(indiceDelProducto, 1)
+    producto.cantidad = 0;
+}
+
+let favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
+
+//Funcion para agregar los productos seleccionados a favoritos
+function agregarAFavoritos(productoId){
+        const repetido = favoritos.some((prod) => prod.id === productoId)
+        if(!repetido){
+            const producto = productosDisponibles.find((prod) => prod.id === productoId)
+            const nuevoProducto = {
+                ...producto,
+                fecha:""
+            }
+            nuevoProducto.fecha = `${dayjs().format('DD/MMM/YYYY')}`
+            favoritos.push(nuevoProducto)
+            producto.cantidad = 0;
+            agregarFavAlLocalStorage();
+    }
+}
+
+
+
+//Selectores del DOM
 let catalogo = document.querySelector(".inicio__catalogo");
 let template = document.querySelector("template")
 let cardProductos = template.content.querySelector(".producto-card");
@@ -90,10 +85,11 @@ const carritoContenedor = document.querySelector("#carrito")
 const carritoProductos = carritoContenedor.querySelector(".carrito__div")
 const precioTotal = carritoContenedor.querySelector(".precio-total")
 const botonVaciarCarrito = carritoContenedor.querySelector(".boton-vaciar")
-precioTotal.innerHTML = "Precio total: $" + carrito.productos.reduce((acc, producto) => acc + producto.precio * producto.cantidad, 0)
+const buscador = document.querySelector("#buscador")
+precioTotal.innerHTML = "Precio total: $" + carrito.reduce((acc, producto) => acc + producto.precio * producto.cantidad, 0)
 
-
-const pintarEnElDom = () =>{
+//funcion para poner los productos disponibles en el catalogo
+const pintarEnElDomProductos = () =>{
     productosDisponibles.forEach((producto) =>{
     let cardProductosClon = cardProductos.cloneNode(true);
     catalogo.appendChild(cardProductosClon);
@@ -111,39 +107,19 @@ const pintarEnElDom = () =>{
     botonAgregarAlCarrito.onmousedown = () => botonAgregarAlCarrito.style.background = "#f4e4d8b4";
     botonAgregarAlCarrito.onmouseup = () =>  botonAgregarAlCarrito.style.background = "transparent";
     botonAgregarAlCarrito.addEventListener("click", ()=>{
-        carrito.agregarProductos(producto.id);
-        precioTotal.innerHTML = "Precio total: $" + carrito.productos.reduce((acc, producto) => acc + producto.precio * producto.cantidad, 0)
-        let mostrarModal = null;
-        //muestra el modal que va a salir cuando se agregue un producto al carrito
-        if (mostrarModal !== null){
-            mostrarModal.remove();
-        }
-        mostrarModal = document.createElement("div")
-        mostrarModal.innerHTML = `
-        <div class="modal" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Producto agregado</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Se ha añadido al carrito <span class="productos-modal">${producto.nombre} ${producto.marca.toUpperCase()}\n ${producto.modelo}</span>  <img src="${producto.img}" class="modal-img"> </p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Aceptar</button>
-                    </div>
-                </div>
-            </div>
-        </div>`
-        document.body.appendChild(mostrarModal)
-
-        let modal = new bootstrap.Modal(mostrarModal.querySelector(".modal"));
-        modal.show(); 
+        agregarProductos(producto.id);
+        precioTotal.innerHTML = "Precio total: $" + carrito.reduce((acc, producto) => acc + producto.precio * producto.cantidad, 0)
+        //sweet alert libreria
+        Swal.fire({
+            title: 'Has añadido al carrito',
+            text: `${producto.nombre} ${producto.marca.toUpperCase()} ${producto.modelo}`,
+            imageUrl: `${producto.img}`,
+            imageWidth: 100,
+            imageAlt: `${producto.nombre}`,
+          })
 })
     
-const botonAgregarAFavoritos = precioProducto.querySelector(`#button-fav${producto.id}`)
-    
+const botonAgregarAFavoritos = precioProducto.querySelector(`#button-fav${producto.id}`) 
 //Si el producto ya está agregado a favoritos, el corazon aparece pintado
     const favoritosEnLS = JSON.parse(localStorage.getItem('favoritos'))
     if(favoritosEnLS){
@@ -161,11 +137,18 @@ const botonAgregarAFavoritos = precioProducto.querySelector(`#button-fav${produc
         botonAgregarAFavoritos.style.fontSize = "28px";
         botonAgregarAFavoritos.style.color = "red";
         botonAgregarAFavoritos.style.fontWeight = "bold"
+        Toastify({
+            text: "Se ha añadido a Favoritos ❤",
+            duration: 2000,
+            style: {
+                background: '#ffaeae'
+            }
+            }).showToast();
     })
 })
 }
 
-pintarEnElDom();
+pintarEnElDomProductos();
 
 
 //Evento para abrir el carrito
@@ -175,11 +158,10 @@ botonAbrirCarrito.addEventListener("click", ()=>{
      carritoProductos.classList.toggle("mostrar-div")
 })
 
-
 //funcion que agregar los productos en el carrito html
 const agregarProductosEnElDom = () =>{
     carritoProductos.innerHTML="";
-    carrito.productos.forEach((prod) =>{
+    carrito.forEach((prod) =>{
         const elemento = document.createElement("li");
         elemento.classList.toggle("li-producto")
         elemento.innerHTML=`
@@ -197,25 +179,28 @@ const agregarProductosEnElDom = () =>{
                 e.preventDefault();
                 const botonApretado = e.target
                 botonApretado.parentElement.remove();
-                carrito.eliminarProductos(prod.id);
-                precioTotal.innerHTML = "Precio total: $" + carrito.productos.reduce((acc, producto) => acc + producto.precio * producto.cantidad, 0)
+                eliminarProductos(prod.id);
+                precioTotal.innerHTML = "Precio total: $" + carrito.reduce((acc, producto) => acc + producto.precio * producto.cantidad, 0)
                 agregarAlLocarStorage();
             }
             eliminarProducto(e);      
         })
     //Vacia el carrito con el boton "Vaciar carrito"
         botonVaciarCarrito.addEventListener("click", ()=>{
-            carrito.productos = [];
+            carrito = [];
             prod.cantidad = 0;
             agregarProductosEnElDom();
-            precioTotal.innerHTML = "Precio total: $" + carrito.productos.reduce((acc, producto) => acc + producto.precio, 0)
+            precioTotal.innerHTML = "Precio total: $" + carrito.reduce((acc, producto) => acc + producto.precio, 0)
         })
     })
     agregarAlLocarStorage();
 }
+
+agregarProductosEnElDom()
+
 //agrega los productos al local storage
 function agregarAlLocarStorage(){   
-    const aJSON = JSON.stringify(carrito.productos);
+    const aJSON = JSON.stringify(carrito);
     localStorage.setItem('carrito', aJSON)
 }
 //agrega los fav al LS
@@ -228,19 +213,16 @@ window.onload = function(){
     const storage = JSON.parse(localStorage.getItem('carrito'))
     const storage2 = JSON.parse(localStorage.getItem('favoritos'))
     if (storage || storage2){
-        carrito.productos = storage
+        carrito = storage
         agregarProductosEnElDom();
-        precioTotal.innerHTML = "Precio total: $" + carrito.productos.reduce((acc, producto) => acc + producto.precio, 0)
+        precioTotal.innerHTML = "Precio total: $" + carrito.reduce((acc, producto) => acc + producto.precio, 0)
         favoritos = storage2
     }
 }
 
-
-
-const buscador = document.querySelector("#buscador")
 //filtra por nombre cuando escribimos en el input
-const filtrar = () =>{
-    if(buscador.value !== ""){
+const filtrar = () =>{ //Buscador es la variable que contiene el queryselector del input
+    if(buscador.value !== 0){
     catalogo.innerHTML = "";
     const buscado = buscador.value.toLowerCase();
     productosDisponibles.forEach((producto) =>{
@@ -262,23 +244,39 @@ const filtrar = () =>{
             botonAgregarAlCarrito.onmousedown = () => botonAgregarAlCarrito.style.background = "#f4e4d8b4";
             botonAgregarAlCarrito.onmouseup = () =>  botonAgregarAlCarrito.style.background = "transparent";
             botonAgregarAlCarrito.addEventListener("click", ()=>{
-                carrito.agregarProductos(producto.id);
-                precioTotal.innerHTML = "Precio total: $" + carrito.productos.reduce((acc, producto) => acc + producto.precio * producto.cantidad, 0)
-            })
-        
-            const botonAgregarAFavoritos = precioProducto.querySelector(`#button-fav${producto.id}`)
+                agregarProductos(producto.id);
+                precioTotal.innerHTML = "Precio total: $" + carrito.reduce((acc, producto) => acc + producto.precio * producto.cantidad, 0)
+                Swal.fire({
+                    title: 'Se ha añadido al carrito!',
+                    text: `${producto.nombre} ${producto.marca.toUpperCase()} ${producto.modelo}`,
+                    imageUrl: `${producto.img}`,
+                    imageWidth: 100,
+                    imageAlt: `${producto.nombre}`,
+                  })
+        })
+    
+            const botonAgregarAFavoritos = precioProducto.querySelector(`#button-fav${producto.id}`) 
+            //Si el producto ya está agregado a favoritos, el corazon aparece pintado
+            const favoritosEnLS = JSON.parse(localStorage.getItem('favoritos'))
+            if(favoritosEnLS){
+                const repetido = favoritosEnLS.some((prod) => prod.id === producto.id)
+                if (repetido){
+                    botonAgregarAFavoritos.style.fontSize = "28px";
+                    botonAgregarAFavoritos.style.color = "red";
+                    botonAgregarAFavoritos.style.fontWeight = "bold"
+                }
+            }
+
+            //Agrega el producto a favoritos cuando se presiona el boton y lo pinta
             botonAgregarAFavoritos.addEventListener("click", ()=>{
+                agregarAFavoritos(producto.id)
                 botonAgregarAFavoritos.style.fontSize = "28px";
                 botonAgregarAFavoritos.style.color = "red";
                 botonAgregarAFavoritos.style.fontWeight = "bold"
             })
+                }
+            })
         }
-    })
-}
-else{
-    catalogo.innerHTML = "";
-    pintarEnElDom();
-}
 }
 
 buscador.addEventListener("keyup", filtrar)

@@ -2,10 +2,10 @@
 
 .body{
     height: 100%;
-    font-family: 'Times New Roman', Times, serif;
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif; 
 }
 
 .main{
@@ -207,6 +207,7 @@
     border-bottom-right-radius: 15px;
     overflow: hidden;
     transition: all 1s;
+    z-index: 100;
 }
 
 #carrito li{
@@ -250,7 +251,7 @@
 }
 
 .mostrar{
-    max-height: 500px !important;
+    max-height: 1000px !important;
 }
 
 .boton-borrar{
@@ -358,6 +359,7 @@
     grid-template-areas:
     "nav"
     "section-compra";
+    z-index: 40;
 }
 
 .inicio__nav{
@@ -471,6 +473,7 @@ input#electrodomesticos:checked ~ .electrodomesticos{
     "producto"
     "comprar";
     overflow: hidden;
+    z-index: 40;
 }
 
 

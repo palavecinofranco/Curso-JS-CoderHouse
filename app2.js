@@ -6,6 +6,7 @@ const tabla = favoritosContainer.querySelector(".table")
 if (favoritos.length == 0){
     favoritosContainer.innerHTML = `<h1 class="mensaje-no">No hay productos agregados en favoritos</h1>`
 }
+
 //agrega los productos almacenados en el localStorage en la tabla.
 function agregarProductosAFavEnElDom(){
         favoritos.forEach((producto) =>{
@@ -16,7 +17,7 @@ function agregarProductosAFavEnElDom(){
             <th scope="row">❤</th>
             <td class="table-td"><img src="${producto.img}" style="width:30px;"></td>
             <td class="table-td">${producto.nombre} ${producto.marca.toUpperCase()} ${producto.modelo}</td>
-            <td class="table-td">${dia} de ${mesArray[mes]} del ${ano}</td>
+            <td class="table-td">${producto.fecha}</td>
             <td class="table-td"><button class="boton-borrar" id="botonborrar${producto.id}">X</button></td>
             </tr>`
             tabla.appendChild(elemento)
@@ -59,10 +60,4 @@ window.onload = function(){
         agregarProductosAFavEnElDom();
     }
 }
-//obtener la fecha... lo cuando muestro la tabla
-let fecha = new Date()
-let ano = fecha.getFullYear();
-let dia = fecha.getDate();
-let mes = fecha.getMonth();
-let mesArray = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]
 
