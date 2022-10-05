@@ -7,8 +7,18 @@ const productosContainer = document.querySelector(".main__carrito")
 const precioTotalCompraContainer = productosContainer.querySelector(".contenedor-table")
 const precioTotalCompra = precioTotalCompraContainer.querySelector(".precio-total-compra")
 const tabla = productosContainer.querySelector(".table")
+const botonConfirmar = precioTotalCompraContainer.querySelector(".table-button")
 precioTotal.innerHTML = "Precio total: $" + carrito.reduce((acc, producto) => acc + producto.precio * producto.cantidad, 0)
 precioTotalCompra.innerHTML = "Precio total: $" + carrito.reduce((acc, producto) => acc + producto.precio * producto.cantidad, 0)
+
+function generarIdAleatorio (){
+    let caracteres = "ABCDEFGHJKMNPQRTUVWXYZ2346789";
+    let idAleatorio = "";
+    for (i=0; i<10; i++){
+        idAleatorio +=caracteres.charAt(Math.floor(Math.random()*caracteres.length));
+    }
+    return idAleatorio;
+}
 
 if (carrito.length == 0){
     productosContainer.innerHTML = `<h1 class="mensaje-no">No hay productos en el carrito</h1>`
@@ -119,3 +129,43 @@ function restarCantidadProducto(productoId){
     const producto = carrito.find((prod) => prod.id === productoId)
     producto.cantidad--
 }
+
+botonConfirmar.addEventListener("click", () =>{
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+      })
+      
+      swalWithBootstrapButtons.fire({
+        title: 'Quieres confirmar la compra?',
+        text: `El total de la compra es de: $${carrito.reduce((acc, producto) => acc + producto.precio * producto.cantidad, 0)}`,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Si, aceptar',
+        cancelButtonText: 'No, cancelar!',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+          swalWithBootstrapButtons.fire(
+            'Realizado!',
+            `Su compra se ha confirmado con éxito. Id de transacción: #${generarIdAleatorio()}`,
+            'success'
+          )
+          carrito = [];
+          actualizarCarritoLocalStorage();
+          productosContainer.innerHTML = `<h1 class="mensaje-no">No hay productos en el carrito</h1>`
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire(
+            'Cancelado',
+            'Su compra ha sido cancelada',
+            'error'
+          )
+        }
+      })
+})

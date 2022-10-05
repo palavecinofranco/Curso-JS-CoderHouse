@@ -32,7 +32,6 @@ productosDisponibles.push(new Producto("Bicicleta", 65000, "Mountain Bike", "Bat
 
 let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
-
 //Funciones del carrito
 function agregarProductos(productoId){ 
     const repetido = carrito.some((prod) => prod.id === productoId)
@@ -57,22 +56,37 @@ function eliminarProductos(productoId){
     producto.cantidad = 0;
 }
 
-let favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
+//agrega los productos al local storage
+function agregarAlLocarStorage(){   
+    const aJSON = JSON.stringify(carrito);
+    localStorage.setItem('carrito', aJSON)
+}
 
-//Funcion para agregar los productos seleccionados a favoritos
+
+let favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
+const aJSON = JSON.stringify(favoritos);
+localStorage.setItem('favoritos', aJSON)
+
+//Funcion para favoritos
 function agregarAFavoritos(productoId){
-        const repetido = favoritos.some((prod) => prod.id === productoId)
-        if(!repetido){
-            const producto = productosDisponibles.find((prod) => prod.id === productoId)
-            const nuevoProducto = {
-                ...producto,
-                fecha:""
-            }
-            nuevoProducto.fecha = `${dayjs().format('DD/MMM/YYYY')}`
-            favoritos.push(nuevoProducto)
-            producto.cantidad = 0;
-            agregarFavAlLocalStorage();
+    const repetido = favoritos.some((prod) => prod.id === productoId)
+    if(!repetido){
+        const producto = productosDisponibles.find((prod) => prod.id === productoId)
+        const nuevoProducto = {
+            ...producto,
+            fecha:""
+        }
+        nuevoProducto.fecha = `${dayjs().format('DD/MMM/YYYY')}`
+        favoritos.push(nuevoProducto)
+        producto.cantidad = 0;
+        agregarFavAlLocalStorage();
     }
+}
+
+//agrega los fav al LS
+function agregarFavAlLocalStorage(){
+    const aJSON = JSON.stringify(favoritos);
+    localStorage.setItem('favoritos', aJSON)
 }
 
 
@@ -86,7 +100,7 @@ const carritoProductos = carritoContenedor.querySelector(".carrito__div")
 const precioTotal = carritoContenedor.querySelector(".precio-total")
 const botonVaciarCarrito = carritoContenedor.querySelector(".boton-vaciar")
 const buscador = document.querySelector("#buscador")
-precioTotal.innerHTML = "Precio total: $" + carrito.reduce((acc, producto) => acc + producto.precio * producto.cantidad, 0)
+
 
 //funcion para poner los productos disponibles en el catalogo
 const pintarEnElDomProductos = () =>{
@@ -141,7 +155,7 @@ const botonAgregarAFavoritos = precioProducto.querySelector(`#button-fav${produc
             text: "Se ha añadido a Favoritos ❤",
             duration: 2000,
             style: {
-                background: '#ffaeae'
+                background: '#FFB3B7'
             }
             }).showToast();
     })
@@ -198,16 +212,6 @@ const agregarProductosEnElDom = () =>{
 
 agregarProductosEnElDom()
 
-//agrega los productos al local storage
-function agregarAlLocarStorage(){   
-    const aJSON = JSON.stringify(carrito);
-    localStorage.setItem('carrito', aJSON)
-}
-//agrega los fav al LS
-function agregarFavAlLocalStorage(){
-    const aJSON = JSON.stringify(favoritos);
-    localStorage.setItem('favoritos', aJSON)
-}
 
 window.onload = function(){
     const storage = JSON.parse(localStorage.getItem('carrito'))
