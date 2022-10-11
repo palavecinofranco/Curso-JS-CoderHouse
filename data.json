@@ -1,0 +1,17 @@
+[
+    {"id": 1, "nombre": "Heladera", "precio":120000, "marca":"Atma", "modelo":"Top mount", "descripcion":"No frozen", "img":"/images/heladeraatma.png", "cantidad":0},
+    {"id": 2, "nombre": "Lavarropas", "precio":90000, "marca":"Samsung", "modelo":"Inverter", "descripcion":"Automatico", "img":"/images/lavarropassamsung.png", "cantidad":0},
+    {"id": 3, "nombre": "Cocina", "precio":80000, "marca":"Philco", "modelo":"Basic CDT", "descripcion":"Electrica", "img":"/images/cocinaphilco.png", "cantidad":0},
+    {"id": 4, "nombre": "Aire acondicionado", "precio":150000, "marca":"TCL", "modelo":"Elite ColdHot", "descripcion":"split frio/calor", "img":"/images/aireacondicionadotcl.png", "cantidad":0},
+    {"id": 5, "nombre": "Zapatillas", "precio":45000, "marca":"Nike", "modelo":"Air force 1", "descripcion":"blancas", "img":"/images/zapasnike.png", "cantidad":0},
+    {"id": 6, "nombre": "Notebook", "precio":210000, "marca":"Lenovo", "modelo":"Programbook", "descripcion":"AMD Ryzen 5 16GB RAM, 512GB SSD", "img":"/images/notebooklenovo.png", "cantidad":0},
+    {"id": 7, "nombre": "Jogging", "precio":10000, "marca":"Puma", "modelo":"Rebel", "descripcion":"Negro c/amarillo", "img":"/images/pantalonpuma.png", "cantidad":0},
+    {"id": 8, "nombre": "Buzo", "precio":15000, "marca":"Adidas", "modelo":"Essentials", "descripcion":"Negro", "img":"/images/buzoimg.png", "cantidad":0},
+    {"id": 9, "nombre": "Mouse", "precio":6200, "marca":"Redragon", "modelo":"Impact", "descripcion":"Blanco con luces", "img":"/images/mouseredragon.png", "cantidad":0},
+    {"id": 10, "nombre": "Smart TV", "precio":105000, "marca":"Samsung", "modelo":"Series 7", "descripcion":"Led 4k", "img":"/images/tele.png", "cantidad":0},
+    {"id": 11, "nombre": "Maquina de cortar pelo", "precio":12000, "marca":"Wahl", "modelo":"Magic Clip", "descripcion":"Inalambrica", "img":"/images/maquina.png", "cantidad":0},
+    {"id": 12, "nombre": "Termo", "precio":35000, "marca":"Stanley", "modelo":"Clásico 1.4 LTS", "descripcion":"verde con tapón cebador", "img":"/images/termo.png", "cantidad":0},
+    {"id": 13, "nombre": "Hidrolavadora", "precio":20000, "marca":"Black + Decker", "modelo":"BW13", "descripcion":"Naranja y negro", "img":"/images/hidro.png", "cantidad":0},
+    {"id": 14, "nombre": "Memoria RAM", "precio":9000, "marca":"Fury Beast", "modelo":"DDR4", "descripcion":"Gamer 8GB 1 Kingstone", "img":"/images/ram.png", "cantidad":0},
+    {"id": 15, "nombre": "Bicicleta", "precio":65000, "marca":"Mountain Bike", "modelo":"Battle 210", "descripcion":"c/ cambios color rojo/negro", "img":"/images/bici.png", "cantidad":0}
+]

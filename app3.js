@@ -8,8 +8,12 @@ const precioTotalCompraContainer = productosContainer.querySelector(".contenedor
 const precioTotalCompra = precioTotalCompraContainer.querySelector(".precio-total-compra")
 const tabla = productosContainer.querySelector(".table")
 const botonConfirmar = precioTotalCompraContainer.querySelector(".table-button")
-precioTotal.innerHTML = "Precio total: $" + carrito.reduce((acc, producto) => acc + producto.precio * producto.cantidad, 0)
 precioTotalCompra.innerHTML = "Precio total: $" + carrito.reduce((acc, producto) => acc + producto.precio * producto.cantidad, 0)
+let productosComprados = JSON.parse(localStorage.getItem('comprados')) || []
+function agregarCompradosAlLs(){
+  const aJSON = JSON.stringify(productosComprados);
+  localStorage.setItem('comprados', aJSON)
+}
 
 function generarIdAleatorio (){
     let caracteres = "ABCDEFGHJKMNPQRTUVWXYZ2346789";
@@ -151,14 +155,36 @@ botonConfirmar.addEventListener("click", () =>{
         if (result.isConfirmed) {
           swalWithBootstrapButtons.fire(
             'Realizado!',
-            `Su compra se ha confirmado con éxito. Id de transacción: #${generarIdAleatorio()}`,
+            `Su compra se ha confirmado con éxito`,
             'success'
           )
+          carrito.forEach((producto)=>{
+            const productoNuevo = {
+              ...producto,
+              fecha:"",
+              idTransaccion:`#${generarIdAleatorio()}`
+            }
+            productoNuevo.fecha = `${dayjs().format('DD/MMM/YYYY')}`
+            function agregarProducto(productoId){
+              const repetido = productosComprados.some(prod => prod.id === productoId)
+              if(repetido){
+                const prod = productosComprados.map(prod =>{
+                    if(prod.id === productoId){
+                        prod.cantidad++
+                        prod.fecha = `${dayjs().format('DD/MMM/YYYY')}`
+                    }
+                  })
+                } else {
+              productosComprados.push(productoNuevo)
+              }
+            }
+            agregarProducto(producto.id);
+          })
+          agregarCompradosAlLs();
           carrito = [];
           actualizarCarritoLocalStorage();
           productosContainer.innerHTML = `<h1 class="mensaje-no">No hay productos en el carrito</h1>`
         } else if (
-          /* Read more about handling dismissals below */
           result.dismiss === Swal.DismissReason.cancel
         ) {
           swalWithBootstrapButtons.fire(

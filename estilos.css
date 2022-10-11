@@ -370,10 +370,6 @@
     flex-direction: column;
 }
 
-.inicio_checkbox{
-    display: none;
-}
-
 .inicio__ul{
     width: 100%;
     display: flex;
@@ -382,68 +378,23 @@
     justify-content: space-evenly;
 }
 
-.inicio__label{
-    width: 100%;
-    line-height: 60px;
-    text-align: center;
-    cursor: pointer;
-    color: #ebcbb2;
-}
-
-.inicio__label:hover{
-    color: #EEE;
-}
-
 .inicio__li{
     margin: 0px 35px;
     font-family: 'Kanit', sans-serif;
     font-weight: bold;
 }
 
-.inicio__li input{
-    display: none;
+.inicio__li button{
+    background: none;
+    border: none;
+    color: #ebcbb2;
+    font-weight: bold;
 }
 
-.inicio__checkbox-content{
-    margin: 0;
-    padding: 0;
-    position: absolute;
-    height: 0px;
-    overflow: hidden;
-    transition:height .3s;
-    z-index: 20;
+.inicio__li button:hover{
+    color: #d7b79e;
 }
 
-.inicio__checkbox-content ul{
-    margin: 0;
-    padding: 0;
-}
-
-.checkbox__li{
-    padding: 3px 9px;
-    background-color: #bca2e7ad;
-    list-style-type: none;
-    width: 100%;
-    
-}
-
-.checkbox__li a{
-    text-decoration: none;
-    color:white;
-}
-
-input#moda:checked ~ .inicio__checkbox-content{
-    height: 130px;
-}
-input#tecnologia:checked ~ .inicio__checkbox-content{
-    height: 130px;
-}
-input#servicios:checked ~ .inicio__checkbox-content{
-    height: 100px;
-}
-input#electrodomesticos:checked ~ .electrodomesticos{
-    height: 300px;
-}
 
 /*-----------------------------COMPRA---------------------*/
 
@@ -603,26 +554,84 @@ input#electrodomesticos:checked ~ .electrodomesticos{
     color: red;
 }
 
+.producto-comprado{
+    box-sizing: border-box;
+    width: 80%;
+    height: 250px;
+    border: 1px solid #CCC;
+    border-radius: 10px;
+    box-shadow: 1px 1px 10px 4px #CCC;
+}
+
+.main__comprados{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    margin-top: 15px;
+    gap: 30px;
+}
+
+.producto-header{
+    padding: 10px;
+    border-bottom: 1px solid #CCC;
+}
+
+.producto-contenedor{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+.productoimg{
+    width: 60px;
+    height: auto;
+}
+.producto-caracteristicas{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 50px;
+}
+.desc{
+    margin-left: 30px;
+}
+
+.boton-descargar{
+    min-width: 40px;
+    height: 40px;
+    margin-left: 50px;
+    border: none;
+    background-color: #EEE;
+    color: #6757d4;
+    border-radius: 10px;
+}
+
+.producto-comp-desc{
+    color: rgba(0, 0, 0, 0.408);
+    font-size: 12px;
+}
+
 @keyframes siguiente {
     0%{
         margin-left: 0;
     }
-    30%{
+    20%{
         margin-left: 0;
     }
-    35%{
+    25%{
         margin-left: -100%;
     }
-    65%{
+    55%{
         margin-left: -100%;
     }
-    70%{
+    60%{
         margin-left: -200%;
     }
-    90%{
+    80%{
         margin-left: -200%;
     }
-    95%{
+    85%{
         margin-left: -300%
     }
     100%{
