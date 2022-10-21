@@ -21,7 +21,6 @@
             </div>
           <nav class="header__nav">
             <ul class="nav__ul e-commerce">
-              <li class="nav__li"><a href="#"><i class="fa-solid fa-user" style="padding: 1px 5px; font-size: 18px;"></i>Perfil</a></li>
               <li class="nav__li"><a href="misCompras.html">Mis compras</a></li>
               <li class="nav__li"><a href="favoritos.html"><i class="fa-regular fa-heart" style="font-size: 18px; padding: 3px;"></i>Favoritos</a></li>
               <li class="nav__li li__button"><button class="boton-carrito"><i class="fa-solid fa-cart-shopping"></i></button>
@@ -29,10 +28,6 @@
             </ul>
             <ul class="nav__ul social">
               <li class="nav__li"><a href="index.html">Inicio</a></li>
-              <span style="color: #999;">|</span>
-              <li class="nav__li"><a href="#">Seguidos</a></li>
-              <span style="color: #999;">|</span>
-              <li class="nav__li"><a href="#">Mis Puntos</a></li>
             </ul>
           </nav>
           <ul id="carrito">
@@ -44,25 +39,16 @@
           </div>
           </ul>
         </header>
+         <!--SLIDER-->
       <section class="main__slide">
-        <div class="div__slide">
-          <ul class="ul__slide">
-            <li class="li__slide">
-              <img src="/images/oferta.jpg" alt="" class="img__slide">
-            </li>
-            <li class="li__slide">
-              <img src="/images/living.jpg" alt="" class="img__slide">
-            </li>
-            <li class="li__slide">
-            </li>
-            <li class="li__slide">
-              <img src="/images/electricista.jpg" alt="" class="img__slide">
-            </li>
-            <li class="li__slide">
-              <img src="/images/gaming.jpg" alt="" class="img__slide">
-            </li>
-          </ul>
+        <div class="div__slide" id="slider">
+          <div class="slider__section"><img src="/images/oferta.jpg" alt="" class="slider__img"></div>
+          <div class="slider__section"><img src="/images/gaming.jpg" alt="" class="slider__img"></div>
+          <div class="slider__section"><img src="/images/living.jpg" alt="" class="slider__img"></div>
+          <div class="slider__section"><img src="/images/trabajoencasa.jpg" alt="" class="slider__img"></div>
         </div>
+        <button class="slider__btn slider__btn-left"><i class="fa-solid fa-arrow-left"></i></button>
+        <button class="slider__btn slider__btn-right"><i class="fa-solid fa-arrow-right"></i></button>
       </section>
       <!--Termina el header. Empieza el inicio-->
       <section class="main__inicio">
@@ -71,6 +57,8 @@
             <li class="inicio__li"><button id="btn-moda">Moda</button></li>
             <li class="inicio__li"><button id="btn-tecnologia">Tecnología</button></li>
             <li class="inicio__li"><button id="btn-electrodomesticos">Electrodomesticos</button></li>
+            <li class="inicio__li"><button id="btn-variedad">Variedad</button></li>
+            <li class="inicio__li"><button id="btn-todo">Todo</button></li>
           </ul>
           <form class="header__buscador">
             <input type="search" id="buscador" placeholder="¿Qué estás buscando? ¡Alegra tu día!">
