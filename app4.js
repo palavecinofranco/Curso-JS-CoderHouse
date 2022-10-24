@@ -30,7 +30,7 @@ function agregarProductosCompradosDom(){
             doc.setFont("Helvetica");
             doc.setFontSize(16);
             doc.text("Resumen de compra", 10, 20)
-            doc.addImage("/images/logos.png", 150, 250, 60, 40, 30)
+            doc.addImage("./images/logos.png", 150, 250, 60, 40, 30)
             doc.line(10,30,200,30);
             doc.text("El producto cuenta con una garantía de 6 meses, a partir de la fecha dada. De\npresentar algún problema llamar al 01155882144 o enviar un mail a atención al\ncliente mediante el siguiente mail: adnatalcliente@gmail.com", 8, 60)
             doc.text(`Fecha de emisión: ${producto.fecha}`, 10, 100)
