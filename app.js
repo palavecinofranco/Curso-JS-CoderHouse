@@ -12,7 +12,7 @@ function agregarProductos(productoId){
         })
     } else {
         const buscarProducto = async()=>{
-            const respuesta = await fetch("/data.json")
+            const respuesta = await fetch('/data.json')
             const data = await respuesta.json()
             const producto = data.find(prod => prod.id === productoId)
             producto.cantidad++;
@@ -46,7 +46,7 @@ function agregarAFavoritos(productoId){
     const repetido = favoritos.some(prod => prod.id === productoId)
     if(!repetido){
         const agregarProd = async()=>{
-            const respuesta = await fetch("/data.json")
+            const respuesta = await fetch('/data.json')
             const data = await respuesta.json()
             const producto = data.find(prod => prod.id === productoId)
             const nuevoProducto = {
@@ -82,7 +82,7 @@ precioTotal.innerHTML = "Precio total: $" + carrito.reduce((acc, producto) => ac
 
 //funcion para poner los productos disponibles en el catalogo
 const pintarEnElDomProductos = async()=>{
-    const respuesta = await fetch("/data.json")
+    const respuesta = await fetch('/data.json')
     const data = await respuesta.json()
     data.forEach((producto)=>{
     let cardProductosClon = cardProductos.cloneNode(true);
@@ -200,7 +200,7 @@ const filtrar = () =>{ //Buscador es la variable que contiene el queryselector d
     catalogo.innerHTML = "";
     const buscado = buscador.value.toLowerCase();
     const buscarProd = async()=>{
-        const respuesta = await fetch("/data.json")
+        const respuesta = await fetch('/data.json')
         const data = await respuesta.json()
         data.forEach((producto) =>{
             let nombre = producto.nombre.toLowerCase();
@@ -315,7 +315,7 @@ const botonFiltrarTodo = document.querySelector("#btn-todo")
 
 function pintarProdDomPorBotonFiltrado (filtrar){
     const buscarProd = async()=>{
-    const respuesta = await fetch("/data.json")
+    const respuesta = await fetch('/data.json')
     const data = await respuesta.json()
     data.forEach(producto =>{
         let categoria = producto.categoria;
